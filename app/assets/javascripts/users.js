@@ -1,9 +1,9 @@
 $(document).ready(function() {
-    Stripe.setPublishableKeys($('meta[name="stripe-key"]').attr('content'));
+    Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'));
     // Watch for a form submission:
     $("#form-submit-btn").click(function(event) {
        event.preventDefault();
-       $('input[type=submit').prop('disabled', true);
+       $('input[type=submit]').prop('disabled', true);
        var error = false;
        var ccNum = $('#card_number').val(),
            cvcNum = $('#card_code').val(),
@@ -13,16 +13,16 @@ $(document).ready(function() {
         if(!error) {
             // Get the Stripe token:
             Stripe.createToken ({
-                number:ccNum,
+                number: ccNum,
                 cvc: cvcNum,
                 exp_month: expMonth,
                 exp_year: expYear
-            }, stripeResonseHandler);
+            }, stripeResponseHandler);
         }  
         return false;
     }); // form submission
     
-    function stripeResonseHandler(status, response) {
+    function stripeResponseHandler(status, response) {
         // Get a reference to the form:
         var f = $("#new_user");
         
@@ -35,4 +35,4 @@ $(document).ready(function() {
         // Submit the form:
         f.get(0).submit();
     }
-});
+}); 
